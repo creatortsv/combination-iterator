@@ -1,5 +1,7 @@
 # Combination Iterator
 
+[![CI](https://github.com/creatortsv/combination-iterator/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/creatortsv/combination-iterator/actions/workflows/php.yml)
+
 ### Installation
 ```shell
 composer install creatortsv/combination-iterator
