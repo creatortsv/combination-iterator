@@ -21,16 +21,16 @@ use Creatortsv\CombinationIterator\CombinationLengthIterator;
 use Creatortsv\CombinationIterator\CombinationIterator;
 
 $codeIterator = new CombinationIterator(
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+    range(0, 9),
+    range(0, 9),
+    range(0, 9),
+    range(0, 9),
 );
 
 // The same as ...
 
 $codeIterator = new CombinationLengthIterator(
-    iterator: new CombinationIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
+    iterator: new CombinationIterator(range(0, 9)),
     length: 4,
 );
 
