@@ -57,3 +57,12 @@ foreach (new CombinationIterator([1, 2, 3], $functions) as [$number, $function])
 // second execution for 1
 // the same for the 2 and 3 ...
 ```
+
+It works with any iterable objects
+
+```php
+$iterator = new CombinationIterator(
+    new RecursiveArrayIterator([1, [2, 3], 4]),
+    new MyOwnMagicIterator(),
+);
+```
