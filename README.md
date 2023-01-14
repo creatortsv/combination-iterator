@@ -1,10 +1,11 @@
 # Combination Iterator
 
-## Installation
+### Installation
 ```shell
 composer install creatortsv/combination-iterator
 ```
-## Usage
+
+### Usage
 ```php
 use Creatortsv\CombinationIterator\CombinationLengthIterator;
 use Creatortsv\CombinationIterator\CombinationIterator;
