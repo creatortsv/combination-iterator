@@ -26,6 +26,6 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit -v --testdox --colors=always"
+    "test": "vendor/bin/phpunit -v --testdox --colors=always tests"
   }
 }
