@@ -7,6 +7,7 @@
 | PHP version  | `>= 8.1` |
 
 ## Installation
+The onl thing has to be done
 ```shell
 composer install creatortsv/combination-iterator
 ```
