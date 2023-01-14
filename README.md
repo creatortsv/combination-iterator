@@ -2,12 +2,16 @@
 
 [![CI](https://github.com/creatortsv/combination-iterator/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/creatortsv/combination-iterator/actions/workflows/php.yml)
 
+| Requirements |          |
+| ------------ | -------- |
+| PHP version  | `>= 8.1` |
+
 ## Installation
 ```shell
 composer install creatortsv/combination-iterator
 ```
 
-### Usage
+## Usage
 
 Searching for pin code combination for example
 
