@@ -12,7 +12,7 @@ use Traversable;
 
 /**
  * @template T
- * @template TKey of string|int
+ * @template-implements Iterator<T[], T[]>
  */
 class CombinationLengthIterator implements Iterator, Countable
 {
@@ -44,7 +44,7 @@ class CombinationLengthIterator implements Iterator, Countable
 
     /**
      * @inheritDoc
-     * @return array<array-key<int>, TKey>
+     * @return T[]
      */
     public function key(): array
     {
@@ -53,7 +53,7 @@ class CombinationLengthIterator implements Iterator, Countable
 
     /**
      * @inheritDoc
-     * @return array<array-key<int>, T>
+     * @return T[]
      */
     public function current(): array
     {

@@ -7,7 +7,7 @@ use Iterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @template TMap of array<array-key<int>, int>
+ * @template TMap of int[]
  */
 class CombinationIteratorTest extends TestCase
 {
@@ -31,7 +31,7 @@ class CombinationIteratorTest extends TestCase
 
     /**
      * @dataProvider data
-     * @param array<array-key<int>, TMap> $maps
+     * @param TMap[] $maps
      */
     public function testCount(int $length, int $expectedCount, array $maps): void
     {
@@ -42,7 +42,7 @@ class CombinationIteratorTest extends TestCase
 
     /**
      * @dataProvider data
-     * @param array<array-key<int>, TMap> $maps
+     * @param TMap[] $maps
      */
     public function testIterate(int $length, int $expectedCount, array $maps): void
     {

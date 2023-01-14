@@ -11,7 +11,7 @@ use Traversable;
 
 /**
  * @template T
- * @template TKey of string|int
+ * @template-implements Iterator<T[], T[]>
  */
 class CombinationIterator implements Iterator, Countable
 {
@@ -48,7 +48,7 @@ class CombinationIterator implements Iterator, Countable
 
     /**
      * @inheritDoc
-     * @return array<array-key<int>, TKey>
+     * @return T[]
      */
     public function key(): array
     {
@@ -57,7 +57,7 @@ class CombinationIterator implements Iterator, Countable
 
     /**
      * @inheritDoc
-     * @return array<array-key<int>, T>
+     * @return T[]
      */
     public function current(): array
     {
@@ -94,7 +94,7 @@ class CombinationIterator implements Iterator, Countable
     }
 
     /**
-     * @return array<array-key<int>, T>
+     * @return T[]
      */
     private function apply(string $name): array
     {
