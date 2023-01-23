@@ -8,11 +8,12 @@ use Countable;
 use Exception;
 use InvalidArgumentException;
 use Iterator;
-use Traversable;
+use SplDoublyLinkedList;
 
 /**
- * @template T
- * @template-implements Iterator<T[], T[]>
+ * @template TKey
+ * @template TValue
+ * @template-implements Iterator<int, array<int, TValue>>
  */
 class CombinationLengthIterator implements Iterator, Countable
 {
@@ -42,49 +43,46 @@ class CombinationLengthIterator implements Iterator, Countable
         }
     }
 
-    /**
-     * @inheritDoc
-     * @return T[]
-     */
-    public function key(): array
+    public function key(): int
     {
         return $this->iterator->key();
     }
 
     /**
-     * @inheritDoc
-     * @return T[]
+     * @return array<int, TKey>
+     */
+    public function keys(): array
+    {
+        return $this->iterator->keys();
+    }
+
+    /**
+     * @return array<int, TValue>
      */
     public function current(): array
     {
         return $this->iterator->current();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function next(): void
     {
         $this->iterator->next();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function valid(): bool
     {
         return $this->iterator->valid();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function rewind(): void
     {
         $this->iterator->rewind();
     }
 
-    public function getIterator(): Traversable
+    /**
+     * @return SplDoublyLinkedList<int, Iterator<TKey, TValue>>
+     */
+    public function getIterator(): SplDoublyLinkedList
     {
         return $this->iterator->getIterator();
     }

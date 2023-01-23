@@ -10,13 +10,23 @@ use SplDoublyLinkedList;
 use Traversable;
 
 /**
- * @template T
- * @template-implements Iterator<T[], T[]>
+ * @template TKey
+ * @template TValue
+ * @template-implements Iterator<int, array<int, TValue>>
  */
 class CombinationIterator implements Iterator, Countable
 {
+    /**
+     * @var SplDoublyLinkedList<int, Iterator<TKey, TValue>>
+     */
     private readonly SplDoublyLinkedList $iterator;
 
+    private int $iteration = 0;
+
+    /**
+     * @param iterable<TKey, TValue> $map
+     * @param iterable<TKey, TValue> ...$maps
+     */
     public function __construct(iterable $map, iterable ...$maps)
     {
         $this->iterator = new SplDoublyLinkedList();
@@ -33,40 +43,43 @@ class CombinationIterator implements Iterator, Countable
         array_map($this->iterator->push(...), $maps);
     }
 
+    /**
+     * @return SplDoublyLinkedList<int, Iterator<TKey, TValue>>
+     */
     public function getIterator(): SplDoublyLinkedList
     {
         return $this->iterator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function count(): int
     {
         return array_product(array_map(iterator_count(...), iterator_to_array($this->iterator)));
     }
 
-    /**
-     * @inheritDoc
-     * @return T[]
-     */
-    public function key(): array
+    public function key(): int
     {
-        return $this->apply(name: __FUNCTION__);
+        return $this->iteration;
     }
 
     /**
-     * @inheritDoc
-     * @return T[]
+     * @return array<int, TKey>
+     */
+    public function keys(): array
+    {
+        return array_map(static fn (Iterator $iterator) => $iterator->key(), iterator_to_array($this->iterator));
+    }
+
+    /**
+     * @return array<int, TValue>
      */
     public function current(): array
     {
-        return $this->apply(name: __FUNCTION__);
+        return array_map(static fn (Iterator $iterator) => $iterator->current(), iterator_to_array($this->iterator));
     }
 
     public function next(): void
     {
-        $this->modeSwitch();
+        $this->iterator->setIteratorMode(mode: SplDoublyLinkedList::IT_MODE_LIFO | SplDoublyLinkedList::IT_MODE_KEEP);
 
         foreach ($this->iterator as $pos => $map) {
             $map->next();
@@ -80,38 +93,19 @@ class CombinationIterator implements Iterator, Countable
             break;
         }
 
-        $this->modeRead();
+        $this->iteration ++ ;
+        $this->iterator->setIteratorMode(mode: SplDoublyLinkedList::IT_MODE_FIFO | SplDoublyLinkedList::IT_MODE_KEEP);
     }
 
     public function rewind(): void
     {
-        $this->apply(name: __FUNCTION__);
+        array_map(static fn (Iterator $iterator) => $iterator->rewind(), iterator_to_array($this->iterator));
+
+        $this->iteration = 0;
     }
 
     public function valid(): bool
     {
-        return !in_array(false, $this->apply(name: __FUNCTION__), strict: true);
-    }
-
-    /**
-     * @return T[]
-     */
-    private function apply(string $name): array
-    {
-        return array_map(static fn (Iterator $iterator) => $iterator->$name() ?? true, iterator_to_array($this->iterator));
-    }
-
-    private function modeRead(): void
-    {
-        $this->iterator->setIteratorMode(
-            mode: SplDoublyLinkedList::IT_MODE_FIFO | SplDoublyLinkedList::IT_MODE_KEEP,
-        );
-    }
-
-    private function modeSwitch(): void
-    {
-        $this->iterator->setIteratorMode(
-            mode: SplDoublyLinkedList::IT_MODE_LIFO | SplDoublyLinkedList::IT_MODE_KEEP,
-        );
+        return !in_array(false, array_map(static fn (Iterator $iterator) => $iterator->valid(), iterator_to_array($this->iterator)), strict: true);
     }
 }
